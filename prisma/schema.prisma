@@ -8,3 +8,36 @@ datasource db {
   directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
   shadowDatabaseUrl = env("POSTGRES_URL_NON_POOLING") // used for migrations
 }
+
+model BandPost {
+  id          Int      @id @default(autoincrement())
+  email       String
+  published   Boolean  @default(false)
+  heading     String
+  name        String?
+  keywords    String?
+  location    String
+  bodyText    String
+  spotifyLink String?
+  soundCloudLink String?
+  otherLinks  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model MemberPost {
+  id          Int      @id @default(autoincrement())
+  email       String
+  published   Boolean  @default(false)
+  heading     String
+  name        String?
+  keywords    String?
+  location    String
+  bodyText    String
+  spotifyLink String?
+  soundCloudLink String?
+  otherLinks  String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
