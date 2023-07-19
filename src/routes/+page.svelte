@@ -1,5 +1,31 @@
+<script lang="ts">
+  export let data;
+  let bandPosts = data.bandPosts;
+
+  const postBandPost = async () => {
+    await fetch('/api/band-posts', 
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+      })
+      .then(res => res.json())
+      .then(data => console.log(data))
+      .catch(err => console.log(err));
+
+    bandPosts = await fetch('/api/band-posts')
+      .then(res => res.json())
+      .catch(err => console.log(err));
+  }
+</script>
+
 <h1>🎸 Bandero 🎸</h1>
-<p>App is under development</p>
+{ #each bandPosts as bandPost }
+  <h2>{bandPost.heading}</h2>
+  <p>{bandPost.body}</p>
+{ /each }
+<button on:click={postBandPost}>Add new post</button>
 
 <style lang="scss">
   :global(body) {

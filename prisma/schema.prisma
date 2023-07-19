@@ -15,12 +15,12 @@ model BandPost {
   published   Boolean  @default(false)
   heading     String
   name        String?
-  keywords    String?
+  keywords    Keyword[]
   location    String
-  bodyText    String
+  body        String
   spotifyLink String?
   soundCloudLink String?
-  otherLinks  String?
+  otherLinks  Link[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }
@@ -31,13 +31,29 @@ model MemberPost {
   published   Boolean  @default(false)
   heading     String
   name        String?
-  keywords    String?
+  keywords    Keyword[]
   location    String
-  bodyText    String
+  body        String
   spotifyLink String?
   soundCloudLink String?
-  otherLinks  String?
+  otherLinks  Link[]
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
+}
+
+model Keyword {
+  id          Int      @id @default(autoincrement())
+  keyword     String   @unique
+  bandPosts   BandPost[]
+  memberPosts MemberPost[]
+}
+
+model Link {
+  id          Int      @id @default(autoincrement())
+  url         String   
+  bandPostId  Int?
+  memberPostId Int?
+  bandPost    BandPost? @relation(fields: [bandPostId], references: [id])
+  memberPost  MemberPost? @relation(fields: [memberPostId], references: [id])
 }
 
